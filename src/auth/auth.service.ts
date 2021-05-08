@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UsersService } from './users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { ExtractJwt } from 'passport-jwt';
@@ -19,16 +23,16 @@ export class AuthService {
       const { password, ...result } = user;
       return this.login(result, remember_me);
     }
-    return null;
+    throw new NotFoundException();
   }
 
   async login(user: any, refresh: boolean) {
     const payload = { username: user.username, sub: user.userId };
     const access_token = this.jwtService.sign(payload);
-    const refresh_token = this.jwtService.sign(payload, {
-      expiresIn: '5m',
-      secret: jwtConstants.refresh_secret,
-    });
+    const refresh_token = this.jwtService.sign(
+      payload,
+      jwtConstants.refresh_sign_options,
+    );
 
     return {
       access_token: access_token,
@@ -38,9 +42,10 @@ export class AuthService {
 
   async refresh(refresh_token: any) {
     try {
-      const user = this.jwtService.verify(refresh_token, {
-        secret: jwtConstants.refresh_secret,
-      });
+      const user = this.jwtService.verify(
+        refresh_token,
+        jwtConstants.refresh_verify_options,
+      );
 
       return this.login(user, false);
     } catch (e) {
@@ -50,11 +55,10 @@ export class AuthService {
 
   async getUser(token: string) {
     const decoded = this.jwtService.decode(token);
-    if(decoded) {
+    if (decoded) {
       return {
         username: decoded['username'],
-      }
+      };
     }
-    
-  } 
+  }
 }

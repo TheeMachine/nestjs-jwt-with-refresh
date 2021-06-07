@@ -1,0 +1,15 @@
+---
+application:
+  name: "nestjs-login"
+  project: "nestjs-login"
+  organization: "QoveryCommunity"
+databases:
+- type: "MYSQL"
+  name: "nestjs-login"
+  version: "8.0"
+routers:
+- name: "main-nestjs-login"
+  routes:
+  - application_name: "nestjs-login"
+    paths:
+    - "/*"

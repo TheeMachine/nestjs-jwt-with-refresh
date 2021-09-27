@@ -23,7 +23,7 @@ export class AuthService {
       const { password, ...result } = user;
       return this.login(result, remember_me);
     }
-    throw new NotFoundException();
+    throw new NotFoundException("User Not Found");
   }
 
   async login(user: any, refresh: boolean) {
@@ -52,7 +52,7 @@ export class AuthService {
       throw new UnauthorizedException();
     }
   }
-
+  
   async getUser(token: string) {
     const decoded = this.jwtService.decode(token);
     if (decoded) {

@@ -24,6 +24,7 @@ $ npm run start:prod
 ```
 
 ## Test Route
+### Heroku Url : https://nestjs-login.herokuapp.com
 
 | Method     | URI                               | Request                                                  | Response                        |
 |------------|------------------------------------------------|-----------------------------------------------|----------------------------------|

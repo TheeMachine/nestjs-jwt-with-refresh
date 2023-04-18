@@ -24,7 +24,7 @@ $ npm run start:prod
 ```
 
 ## Test Route
-### Heroku Url : https://nestjs-login.herokuapp.com
+### [Vercel Url](https://nestjs-jwt-with-refresh.vercel.app)
 
 | Method     | URI                               | Request                                                  | Response                        |
 |------------|------------------------------------------------|-----------------------------------------------|----------------------------------|
